@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+        }
+
+        header{
+            background: linear-gradient(90deg, #38b6ff, #32ff7e);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+        }
+
+
+        main{
+          min-height: 100vh;
+          width: 100%;
+            padding: 100px;
+        }
+
+
+        .table-container {
+            width: 75%; /* Adjust this percentage as needed */
+            margin: 0 auto; /* Center the table */
+        }
+
+
+        .section-card {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 300px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-card {
+            animation: fadeInUp 0.6s ease-in-out;
+        }
+
+        /* Button Styling */
+        .btn-custom {
+            background-color: #32ff7e;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #38b6ff;
+        }
+
+
+
+
+        footer {
+            margin-top: 50px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #38b6ff, #32ff7e);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background: linear-gradient(90deg, #38b6ff, #32ff7e);">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="assets/logo.png" alt="Logo" width="30" height="30" class="me-2">
+                <span class="h5 text-white">Uresha POS System</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="#">Customers</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="#">Items</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="#">Orders</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="#">Order History</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+</header>
+
+
+
+<!-- Customer Management -->
+<main>
+
+    <div class="container bg-white p-4 rounded shadow mt-5">
+    <h2 class="text-center my-4">
+      <i class="fas fa-user-friends me-2"></i> Customer Form
+    </h2>
+
+    <!-- Search Bar and Button in the Same Level -->
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search customers...">
+      </div>
+      <div class="col-md-4 text-right">
+        <button id="newCustomerBtn" class="btn btn-success">New Customer</button>
+      </div>
+    </div>
+
+    <form id="customerForm" style="display: none;">
+
+      <p class="text-center mb-4">Please fill in the details below to manage customer information.</p>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="customerName">Full Name</label>
+          <input type="text" class="form-control" id="customerName" placeholder="Enter full name" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="customerEmail">Email address</label>
+          <input type="email" class="form-control" id="customerEmail" placeholder="Enter email" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="customerPhone">Phone Number</label>
+          <input type="tel" class="form-control" id="customerPhone" placeholder="Enter phone number" required pattern="[0-9]{10}">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="customerAddress">Address</label>
+          <textarea class="form-control" id="customerAddress" rows="3" placeholder="Enter address" required></textarea>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </form>
+  </div>
+
+    <!-- Customer Details Table -->
+    <h3 class="text-center my-4">Customer Details</h3>
+
+
+    <div class="table-container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+            </tr>
+            </thead>
+            <tbody id="customerTableBody">
+
+            <!-- Customer data will be appended here -->
+            </tbody>
+        </table>
+    </div>
+
+
+</main>
+
+
+
+<!-- Item Management -->
+<main>
+
+    <div class="container bg-white p-4 rounded shadow mt-5">
+        <h2 class="text-center my-4">
+            <i class="fas fa-box-open me-2"></i> Item Form
+        </h2>
+
+        <!-- Search Bar and Button in the Same Level -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <input type="text" id="itemSearchInput" class="form-control" placeholder="Search items...">
+            </div>
+            <div class="col-md-4 text-right">
+                <button id="newItemBtn" class="btn btn-success">New Item</button>
+            </div>
+        </div>
+
+        <form id="itemForm" style="display: none;">
+
+            <p class="text-center mb-4">Please fill in the details below to manage item information.</p>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" class="form-control" id="itemName" placeholder="Enter item name" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="itemCode">Item Code</label>
+                    <input type="text" class="form-control" id="itemCode" placeholder="Enter item code" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="itemQuantity">Quantity</label>
+                    <input type="number" class="form-control" id="itemQuantity" placeholder="Enter quantity" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="itemPrice">Price</label>
+                    <input type="number" class="form-control" id="itemPrice" placeholder="Enter price" required>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Item Details Table -->
+    <h3 class="text-center my-4">Item Details</h3>
+
+    <div class="table-container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Item Code</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody id="itemTableBody">
+
+            <!-- Item data will be appended here -->
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+
+
+
+    <!-- Orders -->
+    <div class="section-card">
+    <h3>Place Orders</h3>
+    <p>Handle customer orders efficiently here.</p>
+    <button class="btn btn-custom">Place Orders</button>
+    </div>
+
+    <!-- Order History -->
+    <div class="section-card">
+    <h3>Order History</h3>
+    <p>Review past customer orders.</p>
+    <button class="btn btn-custom">View History</button>
+    </div>
+
+
+
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Uresha POS System | All rights reserved</p>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<!-- Customer -->
+<script>
+  $(document).ready(function() {
+    // Caching jQuery selectors for better performance
+    const $customerForm = $('#customerForm');
+    const $newCustomerBtn = $('#newCustomerBtn');
+    const $customerTableBody = $('#customerTableBody');
+
+    // Function to show the form
+    $newCustomerBtn.on('click', function() {
+      $customerForm.show();
+    });
+
+    // Function to handle form submission
+    $customerForm.on('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Get form values
+      const name = $('#customerName').val();
+      const email = $('#customerEmail').val();
+      const phone = $('#customerPhone').val();
+      const address = $('#customerAddress').val();
+
+      // Append the new customer details to the table
+      $customerTableBody.append(`
+                <tr>
+                    <td>${name}</td>
+                    <td>${email}</td>
+                    <td>${phone}</td>
+                    <td>${address}</td>
+                </tr>
+            `);
+
+      // Hide the form after submission and clear the form inputs
+      $customerForm.hide().trigger('reset');
+    });
+
+    // Close the form when clicking outside of it
+    $(window).on('click', function(event) {
+      // Check if the click was outside the form and the button
+      if (!$customerForm.is(event.target) && $customerForm.has(event.target).length === 0 && !$newCustomerBtn.is(event.target)) {
+        $customerForm.hide();
+      }
+    });
+
+
+
+  });
+</script>
+
+
+<!-- Item -->
+<script>
+    $(document).ready(function() {
+        // Caching jQuery selectors for better performance
+        const $itemForm = $('#itemForm');
+        const $newItemBtn = $('#newItemBtn');
+        const $itemTableBody = $('#itemTableBody');
+
+        // Function to show the form
+        $newItemBtn.on('click', function() {
+            $itemForm.show();
+        });
+
+        // Function to handle form submission
+        $itemForm.on('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form values
+            const itemName = $('#itemName').val();
+            const itemCode = $('#itemCode').val();
+            const quantity = $('#itemQuantity').val();
+            const price = $('#itemPrice').val();
+
+            // Append the new item details to the table
+            $itemTableBody.append(`
+                <tr>
+                    <td>${itemName}</td>
+                    <td>${itemCode}</td>
+                    <td>${quantity}</td>
+                    <td>${price}</td>
+                </tr>
+            `);
+
+            // Hide the form after submission and clear the form inputs
+            $itemForm.hide().trigger('reset');
+        });
+
+        // Close the form when clicking outside of it
+        $(window).on('click', function(event) {
+            // Check if the click was outside the form and the button
+            if (!$itemForm.is(event.target) && $itemForm.has(event.target).length === 0 && !$newItemBtn.is(event.target)) {
+                $itemForm.hide();
+            }
+        });
+
+        // Search functionality
+        $('#itemSearchInput').on('keyup', function() {
+            var value = $(this).val().toLowerCase();
+            $('#itemTableBody tr').filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
+</body>
+
+</html>
