@@ -1,8 +1,3 @@
-/*
-* export  -> import {CustomerModel} from "./models/customerModel.js";
-* export default  -> import CustomerModel from "./models/customerModel.js";
-* */
-
 export default class CustomerModel{
     constructor(id, first_name, last_name, mobile, email, address) {
         this._id = id;

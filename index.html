@@ -226,11 +226,14 @@
 </main>
 
 
+
+
 <!-- Item Management -->
 <main id="itemManagement">
+
     <div class="container bg-white p-4 rounded shadow mt-5">
         <h2 class="text-center my-4">
-            <i class="fas fa-box-open me-2"></i> Item Management
+            <i class="fas fa-box-open me-2"></i> Item Form
         </h2>
 
         <!-- Search Bar and Button in the Same Level -->
@@ -243,27 +246,28 @@
             </div>
         </div>
 
-        <!-- Item Form -->
         <form id="itemForm" style="display: none;">
+
             <p class="text-center mb-4">Please fill in the details below to manage item information.</p>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="itemName">Item Name</label>
+                    <label for="itemName" class="form-label" >Item Name</label>
                     <input type="text" class="form-control" id="itemName" placeholder="Enter item name" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="itemCode">Item Code</label>
+                    <label for="itemCode" class="form-label">Item Code</label>
                     <input type="text" class="form-control" id="itemCode" placeholder="Enter item code" required>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="itemQuantity">Quantity</label>
+                    <label for="itemQuantity" class="form-label">Quantity</label>
                     <input type="number" class="form-control" id="itemQuantity" placeholder="Enter quantity" required>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="itemPrice">Price</label>
+                    <label for="itemPrice" class="form-label">Price</label>
                     <input type="number" class="form-control" id="itemPrice" placeholder="Enter price" required>
                 </div>
             </div>
@@ -293,7 +297,29 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Action Modal -->
+    <div class="modal fade" id="actionModalItem" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="actionModalItemLabel">Item Actions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>What would you like to do with this Item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="updateItemsBtn">Update</button>
+                    <button type="button" class="btn btn-danger" id="deleteItemsBtn">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
+
 
 
 
@@ -498,77 +524,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-
 <script type="module" src="controller/customerController.js"></script>
+<script type="module" src="controller/itemController.js"></script>
+<script type="module" src="controller/ordersController.js"></script>
 
-<!--
-
-<script>
-    $(document).ready(function() {
-        // Caching jQuery selectors for better performance
-        const $itemForm = $('#itemForm');
-        const $newItemBtn = $('#newItemBtn');
-        const $itemTableBody = $('#itemTableBody');
-
-        // Function to show the form
-        $newItemBtn.on('click', function() {
-            $itemForm.show();
-        });
-
-        // Function to handle form submission
-        $itemForm.on('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            // Get form values
-            const itemName = $('#itemName').val();
-            const itemCode = $('#itemCode').val();
-            const quantity = $('#itemQuantity').val();
-            const price = $('#itemPrice').val();
-
-            // Append the new item details to the table
-            $itemTableBody.append(`
-                <tr>
-                    <td>${itemName}</td>
-                    <td>${itemCode}</td>
-                    <td>${quantity}</td>
-                    <td>${price}</td>
-                </tr>
-            `);
-
-            // Hide the form after submission and clear the form inputs
-            $itemForm.hide().trigger('reset');
-        });
-
-        // Close the form when clicking outside of it
-        $(window).on('click', function(event) {
-            // Check if the click was outside the form and the button
-            if (!$itemForm.is(event.target) && $itemForm.has(event.target).length === 0 && !$newItemBtn.is(event.target)) {
-                $itemForm.hide();
-            }
-        });
-
-        // Search functionality
-        $('#itemSearchInput').on('keyup', function() {
-            var value = $(this).val().toLowerCase();
-            $('#itemTableBody tr').filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-            });
-        });
-    });
-</script>
-
-
-
-<script>
-    function viewOrderDetails(orderId) {
-        // Populate the modal with order details based on the order ID
-        document.getElementById('modalOrderId').innerText = orderId;
-        document.getElementById('orderDetailsModal').classList.add('show');
-        // Implement further logic to fetch and display order details
-    }
-</script>
-
--->
 
 </body>
 
